@@ -46,8 +46,8 @@ Prepare {train,valid,test}.tsv and {train,valid,test}.wrd in "data/AISHELL6-Whis
 example format for tsv:
 ```
 /
-id1	id1_video_path	id1_audio_path	id1_video_frame_length	id1_frame_length
-id2	id2_video_path	id2_audio_path	id2_video_frame_length	id2_frame_length
+id1	id1_video_path	id1_audio_path	id1_video_frame_length	id1_audio_frame_length
+id2	id2_video_path	id2_audio_path	id2_video_frame_length	id2_audio_frame_length
 ```
 example format for wrd:
 ```
