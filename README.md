@@ -2,7 +2,7 @@
 
 ## Introduction
 
-We release [AISHELL6-Whisper](https://zhuotm.github.io/AISHELL6-Whisper), an audio-visual whisper speech dataset in Chinese Mandarin. We propose an audio-visual speech recognition (AVSR) baseline based on the [Whisper-Flamingo](https://github.com/roudimit/whisper-flamingo)  framework, which integrates visual features into the Whisper speech recognition and translation model with gated cross attention. For simultanous whisper speech and normal speech recognition, We integrates a parallel training strategy to align embeddings across speech types, and employs a projection layer to adapt to whisper speech's spectral properties.
+We release [AISHELL6-Whisper](https://zutm.github.io/AISHELL6-Whisper), an audio-visual whisper speech dataset in Chinese Mandarin. We propose an audio-visual speech recognition (AVSR) baseline based on the [Whisper-Flamingo](https://github.com/roudimit/whisper-flamingo)  framework, which integrates visual features into the Whisper speech recognition and translation model with gated cross attention. For simultanous whisper speech and normal speech recognition, We integrates a parallel training strategy to align embeddings across speech types, and employs a projection layer to adapt to whisper speech's spectral properties.
 
 
 
@@ -10,7 +10,7 @@ We release [AISHELL6-Whisper](https://zhuotm.github.io/AISHELL6-Whisper), an aud
 Specfically, comment out [line 624](https://github.com/facebookresearch/av_hubert/blob/e8a6d4202c208f1ec10f5d41a66a61f96d1c442f/avhubert/hubert.py#L624) and add this after line 625: `features_audio = torch.zeros_like(features_video)`. This is needed since we only use video inputs with AV-HuBERT, not audio. Otherwise you will get an error about 'NoneType' object. 
 
 # Download our AISHELL6-Whisper dataset
-Download our AISHELL6-Whisper dataset at [https://zhuotm.github.io/AISHELL6-Whisper](https://zhuotm.github.io/AISHELL6-Whisper)
+Download our AISHELL6-Whisper dataset at [https://zutm.github.io/AISHELL6-Whisper](https://zutm.github.io/AISHELL6-Whisper)
 
 # Environment
 Please follows the virtual environment preparation method in [virtual-environment-for-training-and-testing](https://github.com/roudimit/whisper-flamingo/blob/main/README.md#virtual-environment-for-training-and-testing) to build up the envirnment.
