@@ -1,0 +1,33 @@
+train_name: whisper
+audio_max_length: 320000 # 20s
+text_max_length: 350
+accelerator: auto
+weight_decay: 0.01
+adam_epsilon: 1.0e-8
+num_worker: 16
+validate_every_n_batches: 2000
+num_devices: 1
+
+model_name: large-v3
+learning_rate: 5.0e-6 # large
+batch_size: 1 
+num_train_steps: 48000
+warmup_steps: 1000
+gradient_accumulation_steps: 1
+
+monitor: 'val_noisy_multi_babble/acc' # noisy test set
+noise_prob: 0.0
+noise_fn: 'data/noise.tsv' 
+noise_fn_val: 'data/noise.tsv' 
+noise_fn_test: 'data/noise.tsv' 
+
+spec_augment: "ls-basic"
+dropout_rate: 0 
+
+lang: zh
+resume_training: False
+
+train_id: whisper_zh_largev3_AISHELL6-Whisper
+
+log_output_dir: "log/train_audio_slurm"
+check_output_dir: "models/checkpoint"
