@@ -1,0 +1,50 @@
+train_name: whisper
+audio_max_length: 320000 
+text_max_length: 350
+accelerator: auto
+weight_decay: 0.01
+adam_epsilon: 1.0e-8
+num_worker: 16
+validate_every_n_batches: 2000
+num_devices: 1
+
+model_name: large-v3
+learning_rate: 1.0e-4 
+batch_size: 1
+num_train_steps: 48000
+warmup_steps: 5000
+gradient_accumulation_steps: 1
+
+monitor: 'val_noisy_en_babble/acc_av' # noisy test set
+noise_prob: 0.0
+noise_snr_train: 0
+noise_fn: 'data/noise.tsv' 
+noise_fn_val: 'data/noise.tsv' 
+noise_fn_test: 'data/noise.tsv' 
+
+video_model_ckpt: 'models/large_noise_pt_noise_ft_433h_only_weights.pt'
+freeze_video_model: True
+freeze_video_batch_norm_stats: False 
+
+spec_augment: "ls-basic"
+dropout_rate: 0 
+
+lang: zh
+pt_ckpt: models/checkpoint/whisper_zh_largev3_AISHELL6-Whisper/last.ckpt
+resume_training: False
+train_id: whisper_zh_largev3_AISHELL6-Whisper_av
+
+video_projection_train_only: False
+video_projection_separate_lr: ''
+prob_use_av: 1.0 # For Whisper-Flamingo, no modality dropout
+prob_use_a: 0.0
+
+# video
+use_av_hubert_encoder: True
+add_gated_x_attn: 1 # 0 for False, 1 for True
+av_fusion: separate 
+
+log_output_dir: "log/train_video_slurm"
+check_output_dir: "models/checkpoint"
+
+
