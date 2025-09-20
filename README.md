@@ -43,7 +43,6 @@ pip install numpy==1.22 tiktoken==0.5.2 pytorch-lightning==2.1.3 numba==0.58.1 t
 # Preparation
 ### Step1: Prepare {train,valid,test}.tsv and {train,valid,test}.wrd
 Prepare {train,valid,test}.tsv and {train,valid,test}.wrd in "data/AISHELL6-Whisper/{train,valid,test}" following AV-Hubert. Please replace the 'AISHELL6-Whisper_dataset_dir' with the path of AISHELL6-Whisper dataset.
-example format for tsv:
 ```
 python preparation/AISHELL6-Whisper_manifest.py --base_dir AISHELL6-Whisper_dataset_dir --output_dir data/AISHELL6-Whisper
 ```
