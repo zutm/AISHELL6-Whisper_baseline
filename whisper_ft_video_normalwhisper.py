@@ -138,6 +138,7 @@ class MuavicVideoDataset(torch.utils.data.Dataset):
         labels_normal = dec_input_ids_normal[1:] + [self.tokenizer.eot]
         
         # video path
+
         video_path = audio_path.replace('audio/hfm', 'video/camera').replace('.wav', '.avi')
         video_path_normal = normal_audio_path.replace('audio/hfm', 'video/camera').replace('.wav', '.avi')
 

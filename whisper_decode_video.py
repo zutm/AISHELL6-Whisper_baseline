@@ -108,7 +108,9 @@ class MuavicVideoDataset(torch.utils.data.Dataset):
                         self.tokenizer.encode(" " + text)
         labels = dec_input_ids[1:] + [self.tokenizer.eot]
 
+
         video_path = audio_path.replace('audio/hfm', 'video/camera').replace('.wav', '.avi')
+
 
         
         frame_count = int(cv2.VideoCapture(video_path).get(cv2.CAP_PROP_FRAME_COUNT))
