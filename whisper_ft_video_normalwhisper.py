@@ -55,12 +55,13 @@ class MuavicVideoDataset(torch.utils.data.Dataset):
         print("Dataloader max length : {}".format(max_length))
         print("Loaded {} noise wavs".format(len(self.noise_fn)))
         self.whisper2normal=dict()
-        with open('data/w2n.txt','r') as f:
+        with open('data/AISHELL6-Whisper/w2n.txt','r') as f:
             for line in f:
                 id1,id2=line.split(' ')
                 self.whisper2normal[id1]=id2.strip()
+        # text for normal speech
         self.normal2text=dict()
-        with open('data/n2text.txt','r') as f:
+        with open('data/AISHELL6-Whisper/n2text.txt','r') as f:
             for line in f:
                 id1,text=line.split(' ')
                 self.normal2text[id1]=text.strip()
