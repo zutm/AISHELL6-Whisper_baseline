@@ -46,8 +46,8 @@ Prepare {train,valid,test}.tsv and {train,valid,test}.wrd in "data/AISHELL6-Whis
 ```
 python preparation/AISHELL6-Whisper_manifest.py --base_dir AISHELL6-Whisper_dataset_dir --output_dir data/AISHELL6-Whisper
 ```
-### Step2: Prepare the correspondence file for whisper and normal speech.
-Use the command to create "data/AISHELL6-Whisper/w2n.txt" and "data/AISHELL6-Whisper/w2n.txt" to prepare the correspondence file for whisper and normal speech, or you can use the 'w2n.txt' in our realeased dataset. Please replace the 'AISHELL6-Whisper_dataset_dir' with the path of AISHELL6-Whisper dataset. 
+### Step2: Prepare the correspondence file for whisper and normal speech
+Use the command to create "data/AISHELL6-Whisper/w2n.txt" and "data/AISHELL6-Whisper/n2text.txt" to prepare the correspondence file for whisper and normal speech, or you can use the 'w2n.txt' in our realeased dataset. Please replace the 'AISHELL6-Whisper_dataset_dir' with the path of AISHELL6-Whisper dataset. 
 ```
 python preparation/whisper2normal.py --base_dir AISHELL6-Whisper_dataset_dir --output_dir data/AISHELL6-Whisper
 ```
