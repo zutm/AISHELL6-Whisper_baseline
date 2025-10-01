@@ -234,7 +234,7 @@ def load_data(AUDIO_MAX_LENGTH, TEXT_MAX_LENGTH, langs=['en','zh'],
                         wav_fns = [(audio.strip().split('\t')[2],  int(audio.strip().split('\t')[-1]), txt.strip(), 
                                     len(txt.strip()), int(audio.strip().split('\t')[-2])) for audio, txt in zip(audio_lns, txt_lns)]
                     elif lang == 'zh':
-                        wav_fns = [(audio.strip().split('\t')[2],  int(audio.strip().split('\t')[-1]), txt.strip(), 
+                        wav_fns = [(audio.strip().split('\t')[2],  int(audio.strip().split('\t')[-1]), txt.strip(),
                                     len(txt.strip()), int(audio.strip().split('\t')[-2])) for audio, txt in zip(audio_lns, txt_lns)]
 
                     # pre_video_check = len(wav_fns)

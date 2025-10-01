@@ -81,39 +81,18 @@ tensorboard --logdir .  --port 6008
 
 
 # Decoding Script
-### Audio-Only Decoding
-Decode an audio-only model (see `whisper_decode_video.py` for argument details):
+We calculate CER and WER following [compute-cer.py](https://github.com/wenet-e2e/wenet/blob/main/tools/compute-cer.py) and [compute-wer.py](https://github.com/wenet-e2e/wenet/blob/main/tools/compute-wer.py).
+
+Set configuration parameters in 'eval.sh' (see `whisper_decode_video.py` for argument details):
 - Use `--noise-snr 1000` to evaluate in clean conditions.
 - For GPU without fp16, and for cpu, use `--fp16 0`.
 - For decoding on whisper speech, add `--align`.
+-- For audio-only decoding, use `--modalities asr`, for audio-visual decoding, use `--modalities avsr`.
 ```
-python -u whisper_decode_video.py --lang zh \
-                                --model-type large-v3 \
-                                --noise-snr 1000 \
-                                --noise-fn data/noise.tsv \
-                                --modalities asr \
-                                --checkpoint-path models/checkpoint/whisper_zh_largev3_AISHELL6-Whisper/last.ckpt \
-                                --align
-```
-
-
-### Audio-Visual Decoding
-Decode an audio-visual model:
-```
-python -u whisper_decode_video.py --lang zh \
-                                --model-type large-v3 \
-                                --noise-snr 1000 \
-                                --noise-fn data/noise.tsv \
-                                --modalities avsr \
-                                --use_av_hubert_encoder 1 \
-                                --av_fusion separate \
-                                --checkpoint-path models/checkpoint/whisper_zh_largev3_AISHELL6-Whisper_av/last.ckpt \
-                                --av-hubert-path av_hubert/avhubert/ \
-                                --av-hubert-ckpt models/large_noise_pt_noise_ft_433h_only_weights.pt \
-                                --align
+bash eval.sh 
 ```
                           
 
 
 # Acknowledgments
-This code based is based on the following repos: [Whisper-Flamingo](https://github.com/roudimit/whisper-flamingo), [Whisper](https://github.com/openai/whisper), [AV-HuBERT](https://github.com/facebookresearch/av_hubert)
+This code based is based on the following repos: [Whisper-Flamingo](https://github.com/roudimit/whisper-flamingo), [Whisper](https://github.com/openai/whisper), [AV-HuBERT](https://github.com/facebookresearch/av_hubert), [wenet](https://github.com/wenet-e2e/wenet).

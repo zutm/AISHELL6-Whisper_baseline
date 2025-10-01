@@ -13,7 +13,7 @@ def count_frames(fids, audio_dir, video_dir):
         # 确保文件存在，跳过不存在的条目
         if not os.path.isfile(wav_fn):
             continue
-        num_frames_audio = len(wavfile.read(wav_fn)[1])
+        num_frames_audio = len(wavfile.read(wav_fn)[1]) / 3 # 48kHz to 16kHz
         cap = cv2.VideoCapture(video_fn)
         num_frames_video = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         total_num_frames.append([num_frames_audio, num_frames_video])

@@ -237,8 +237,10 @@ hypo, refs = [], []
 whisper_model.eval() # AV-HuBERT batch norm and dropout
 
 
-path_out=os.path.join(out_path, 'pred.txt') 
-with open(path_out, 'w+') as f:
+ref_path = os.path.join(out_path, 'ref.txt')
+hypo_path = os.path.join(out_path, 'hypo.txt')
+utterance_count = 0
+with open(ref_path, 'w+', encoding='utf-8') as f_ref, open(hypo_path, 'w+', encoding='utf-8') as f_hypo:
     for i, b in enumerate(tqdm(dataloader)):
         if args.fp16:
             input_ids = b["input_ids"].half().cuda()
@@ -263,50 +265,17 @@ with open(path_out, 'w+') as f:
                 raise NotImplementedError
             
             for r, l in zip(results, labels):
-                hypo.append(r.text)
-                print('HYPO: {}'.format(r.text))
-                f.write('HYPO: {}\n'.format(r.text))
+                hypo_text = r.text
+                hypo.append(hypo_text)
+                print('HYPO: {}'.format(hypo_text))
+                f_hypo.write('utt_{:05d} {}\n'.format(utterance_count, hypo_text))
 
                 l[l == -100] = tokenizer.eot
-                ref = tokenizer.decode([t for t in l if t.item() not in special_token_set])
-                refs.append(ref)
-                print('REF: {}'.format(ref))
-                f.write('REF: {}\n'.format(ref))
+                ref_text = tokenizer.decode([t for t in l if t.item() not in special_token_set])
+                refs.append(ref_text)
+                print('REF: {}'.format(ref_text))
+                f_ref.write('utt_{:05d} {}\n'.format(utterance_count, ref_text))
+                
+                utterance_count += 1
 
-if args.lang == 'en' or args.task == 'transcribe':
-    if args.normalizer == 'whisper':
-        if args.lang == 'en':
-            std = EnglishTextNormalizer()
-        else:
-            std = BasicTextNormalizer()
-        c_err, c_len, w_err, w_len = 0, 0, 0, 0
-    else:
-        scorer = WerScorer(
-            WerScorerConfig(
-                wer_tokenizer="13a",
-                wer_remove_punct=True,
-                wer_char_level=False,
-                wer_lowercase=True
-            )
-        )
-    with open(os.path.join(out_path, 'wer.368862'), 'w+') as f:
-        for h, r in zip(hypo, refs):
-            if args.normalizer == 'whisper':
-                w_err += editdistance.eval(std(r).split(), std(h).split())
-                w_len += len(r.split())
-            else: 
-                scorer.add_string(ref=r, pred=h)
-                wer = scorer.score()
-        if args.normalizer == 'whisper':
-            wer = 100. * w_err/w_len
-        print("WER: %.4f" % wer)
-        f.write("WER: %.4f\n" % wer)
-    with open(os.path.join(out_path, 'wer.json'), 'w+',) as fp:
-        json.dump({'pred': hypo, 'refs': refs}, fp)
-else:
-    with open(os.path.join(out_path, 'bleu.368862'), 'w+') as f:
-        bleu = sacrebleu.corpus_bleu(hypo, [refs]) #NOTE: [ref] not ref
-        print("BLEU: %.4f" % bleu.score)
-        f.write("BLEU: %.4f\n" % bleu.score)
-    with open(os.path.join(out_path, 'bleu.json'), 'w+',) as fp:
-        json.dump({'pred': hypo, 'refs': refs}, fp)
+
