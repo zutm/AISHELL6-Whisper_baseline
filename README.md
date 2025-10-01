@@ -7,10 +7,6 @@
 We release [AISHELL6-Whisper](https://zutm.github.io/AISHELL6-Whisper), an audio-visual whisper speech dataset in Chinese Mandarin. We propose an audio-visual speech recognition (AVSR) baseline based on the [Whisper-Flamingo](https://github.com/roudimit/whisper-flamingo)  framework, which integrates visual features into the Whisper speech recognition and translation model with gated cross attention. For simultanous whisper speech and normal speech recognition, We integrates a parallel training strategy to align embeddings across speech types, and employs a projection layer to adapt to whisper speech's spectral properties.
 
 
-
-**Important:** to use the project, a minor change is required in the AV-HuBERT code following Whisper-Flamingo.
-Specfically, comment out [line 624](https://github.com/facebookresearch/av_hubert/blob/e8a6d4202c208f1ec10f5d41a66a61f96d1c442f/avhubert/hubert.py#L624) and add this after line 625: `features_audio = torch.zeros_like(features_video)`. This is needed since we only use video inputs with AV-HuBERT, not audio. Otherwise you will get an error about 'NoneType' object. 
-
 # Download our AISHELL6-Whisper dataset
 Download our AISHELL6-Whisper dataset at [https://zutm.github.io/AISHELL6-Whisper](https://zutm.github.io/AISHELL6-Whisper)
 
@@ -41,6 +37,9 @@ Install extra packages used in our project:
 ```
 pip install numpy==1.22 tiktoken==0.5.2 pytorch-lightning==2.1.3 numba==0.58.1 transformers==4.36.2 evaluate ffmpeg-python pandas wget librosa tensorboardX
 ```
+
+**Important:** to use the project, a minor change is required in the AV-HuBERT code following Whisper-Flamingo.
+Specfically, comment out [line 624](https://github.com/facebookresearch/av_hubert/blob/e8a6d4202c208f1ec10f5d41a66a61f96d1c442f/avhubert/hubert.py#L624) and add this after line 625: `features_audio = torch.zeros_like(features_video)`. This is needed since we only use video inputs with AV-HuBERT, not audio. Otherwise you will get an error about 'NoneType' object. 
 
 # Preparation
 ### Step1: Prepare {train,valid,test}.tsv and {train,valid,test}.wrd
