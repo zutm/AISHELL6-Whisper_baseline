@@ -1,5 +1,7 @@
 # AISHELL6-Whisper baseline
 
+[AISHELL6-whisper: A Chinese Mandarin Audio-visual Whisper Speech Dataset with Speech Recognition Baselines](https://arxiv.org/abs/2509.23833)
+
 ## Introduction
 
 We release [AISHELL6-Whisper](https://zutm.github.io/AISHELL6-Whisper), an audio-visual whisper speech dataset in Chinese Mandarin. We propose an audio-visual speech recognition (AVSR) baseline based on the [Whisper-Flamingo](https://github.com/roudimit/whisper-flamingo)  framework, which integrates visual features into the Whisper speech recognition and translation model with gated cross attention. For simultanous whisper speech and normal speech recognition, We integrates a parallel training strategy to align embeddings across speech types, and employs a projection layer to adapt to whisper speech's spectral properties.
@@ -87,7 +89,9 @@ Set configuration parameters in 'eval.sh' (see `whisper_decode_video.py` for arg
 - Use `--noise-snr 1000` to evaluate in clean conditions.
 - For GPU without fp16, and for cpu, use `--fp16 0`.
 - For decoding on whisper speech, add `--align`.
--- For audio-only decoding, use `--modalities asr`, for audio-visual decoding, use `--modalities avsr`.
+- For audio-only decoding, use `--modalities asr`, for audio-visual decoding, use `--modalities avsr`.
+- In the paper we report results with beam size 1.
+
 ```
 bash eval.sh 
 ```
