@@ -91,7 +91,6 @@ Set configuration parameters in 'eval.sh' (see `whisper_decode_video.py` for arg
 ```
 bash eval.sh 
 ```
-                          
 
 
 # Acknowledgments
